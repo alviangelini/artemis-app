@@ -3,21 +3,24 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
 
+import useDataFetching from '../hooks/useDataFetching'
+import useSecondFieldData from '../hooks/useDataFetching';
+
 const Tab1: React.FC = () => {
+  const url = 'https://aresvalley.com/Storage/Artemis/Database/Android/db.csv' // Here the link to the file
+  const data = useSecondFieldData(url);
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 1</IonTitle>
+          <IonTitle>First List</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Tab 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer name="Tab 1 page" />
+      <IonContent>
+        {data.map((value, index) => (
+          <p key={index}>{value}</p>
+        ))}
       </IonContent>
     </IonPage>
   );
